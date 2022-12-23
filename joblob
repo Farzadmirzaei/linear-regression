@@ -1,0 +1,23 @@
+import numpy as np
+import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
+raw_data=pd.read_excel("C:\\Users\\Farzad\\Desktop\\task1.xlsx")
+df=raw_data.copy()
+# im just handle missing data by fill another data (like in 1 columns i fill by one)
+df["experience"].fillna("one", inplace = True)
+df["test_score(out of 10)"].fillna(9, inplace = True)
+im just handle missing data by fill another data (like in 1 columns i fill by one)
+df["experience"]=df["experience"].map({"one" : 1 , "two" : 2 , "three" : 3 , "five" : 5 , "seven":7, "ten" : 10 , "eleven" : 11})
+from sklearn.linear_model import LinearRegression
+model=LinearRegression()
+x=df[["experience" , "test_score(out of 10)" , "interview_score(out of 10)"]]
+y=df["salary($)"]
+model.fit(x, y )
+model.predict([[2, 9 , 6 ]])
+model.predict([[12, 10 , 10 ]])
+model.score(x,y)
+
+import joblib
+joblib.dump(model , "multiple linear regression ")
+mj=joblib.load("multiple linear regression")
